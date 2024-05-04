@@ -134,6 +134,8 @@ class WispApp(ABC):
             # By default rendering results copy directly from torch/cuda mem to OpenGL Texture
             self.blitdevice2device = True
 
+        self.blitdevice2device = False
+        
         self.user_mode: CameraControlMode = None    # Camera controller object (first person, trackball or turntable)
 
         self.widgets = self.create_widgets()        # Create gui widgets for this app

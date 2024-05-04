@@ -37,5 +37,5 @@ def compute_sdf(
     _points = torch.split(points, split_size)
     sdfs = []
     for _p in _points:
-        sdfs.append(_C.external.mesh_to_sdf_cuda(_p.cuda().contiguous(), mesh.cuda().contiguous())[0])
+        sdfs.append(_C.external.mesh_to_sdf_cuda(_p.double().cuda().contiguous(), mesh.double().cuda().contiguous())[0])
     return torch.cat(sdfs)[...,None]
