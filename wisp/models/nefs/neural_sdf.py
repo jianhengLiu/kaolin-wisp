@@ -94,7 +94,7 @@ class NeuralSDF(BaseNeuralField):
         elif embedder_type == 'identity' or (embedder_type == 'none' and position_input):
             embedder, embed_dim = torch.nn.Identity(), 3
         elif embedder_type == 'positional':
-            embedder, embed_dim = get_positional_embedder(frequencies=frequencies, position_input=position_input)
+            embedder, embed_dim = get_positional_embedder(frequencies=frequencies, include_input=position_input)
         else:
             raise NotImplementedError(f'Unsupported embedder type for NeuralSDF: {embedder_type}')
         return embedder, embed_dim
