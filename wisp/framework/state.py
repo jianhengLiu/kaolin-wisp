@@ -243,7 +243,7 @@ class OptimizationState:
     losses: DefaultDict[str, List[float]] = field(default_factory=lambda: defaultdict(list))
     """ Losses currently reported by this optimization task (name to list of values per epoch) """
 
-    metrics: DefaultDict[str, List[float]] = field(default_factory=lambda: defaultdict(float))
+    metrics: DefaultDict[str, List[float]] = field(default_factory=lambda: defaultdict(list))
     """ Metrics currently reported by this optimization task (name to list of values per epoch) """
 
     train_data: List[torch.utils.data.Dataset] = field(default_factory=list)
