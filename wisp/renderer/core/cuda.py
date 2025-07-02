@@ -11,7 +11,7 @@ from contextlib import contextmanager
 
 
 if not os.environ.get('ENABLE_PYCUDA') == '1':
-    from cuda import cuda
+    import cuda
     import torch
 
     @contextmanager
