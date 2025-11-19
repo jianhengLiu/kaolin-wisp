@@ -78,7 +78,7 @@ void hashgrid_query_cuda_impl(
     at::Tensor feats){
 
     int num_threads = 512;
-    AT_DISPATCH_ALL_TYPES_AND(at::ScalarType::Half, feats.type(), "hashgrid_query_cuda", ([&] {
+    AT_DISPATCH_ALL_TYPES_AND(at::ScalarType::Half, feats.scalar_type(), "hashgrid_query_cuda", ([&] {
         const at::cuda::OptionalCUDAGuard device_guard(at::device_of(feats));
         auto stream = at::cuda::getCurrentCUDAStream();
         hashgrid_query_cuda_kernel<<<(num_coords + num_threads - 1) / num_threads, num_threads, 0, stream>>>(
@@ -175,7 +175,7 @@ void hashgrid_query_backward_cuda_impl(
 
     int num_threads = 512;
 
-    AT_DISPATCH_FLOATING_TYPES_AND_HALF(grad_output.type(), "hashgrid_query_backward_cuda", ([&] {
+    AT_DISPATCH_FLOATING_TYPES_AND_HALF(grad_output.scalar_type(), "hashgrid_query_backward_cuda", ([&] {
         const at::cuda::OptionalCUDAGuard device_guard(at::device_of(grad_codebook));
         auto stream = at::cuda::getCurrentCUDAStream();
         hashgrid_query_backward_cuda_kernel<<<(num_coords + num_threads - 1) / num_threads, num_threads, 0, stream>>>(

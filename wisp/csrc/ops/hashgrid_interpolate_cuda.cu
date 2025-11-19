@@ -355,7 +355,7 @@ void hashgrid_interpolate_cuda_impl(
     int num_threads = 512;
     
     if (coord_dim == 3) {
-        AT_DISPATCH_FLOATING_TYPES_AND_HALF(feats.type(), "hashgrid_interpolate_3d_cuda", ([&] {
+        AT_DISPATCH_FLOATING_TYPES_AND_HALF(feats.scalar_type(), "hashgrid_interpolate_3d_cuda", ([&] {
             const at::cuda::OptionalCUDAGuard device_guard(at::device_of(feats));
             auto stream = at::cuda::getCurrentCUDAStream();
             hashgrid_interpolate_3d_cuda_kernel<<<(num_coords + num_threads - 1) / num_threads, num_threads, 0, stream>>>(
@@ -372,7 +372,7 @@ void hashgrid_interpolate_cuda_impl(
             );
         }));
     } else if (coord_dim == 2) {
-        AT_DISPATCH_FLOATING_TYPES_AND_HALF(feats.type(), "hashgrid_interpolate_2d_cuda", ([&] {
+        AT_DISPATCH_FLOATING_TYPES_AND_HALF(feats.scalar_type(), "hashgrid_interpolate_2d_cuda", ([&] {
             const at::cuda::OptionalCUDAGuard device_guard(at::device_of(feats));
             auto stream = at::cuda::getCurrentCUDAStream();
             hashgrid_interpolate_2d_cuda_kernel<<<(num_coords + num_threads - 1) / num_threads, num_threads, 0, stream>>>(
@@ -410,7 +410,7 @@ void hashgrid_interpolate_backward_cuda_impl(
     int num_threads = 512;
 
     if (coord_dim == 3) {
-        AT_DISPATCH_FLOATING_TYPES_AND_HALF(grad_output.type(), "hashgrid_interpolate_3d_backward_cuda", ([&] {
+        AT_DISPATCH_FLOATING_TYPES_AND_HALF(grad_output.scalar_type(), "hashgrid_interpolate_3d_backward_cuda", ([&] {
             const at::cuda::OptionalCUDAGuard device_guard(at::device_of(grad_codebook));
             auto stream = at::cuda::getCurrentCUDAStream();
             hashgrid_interpolate_3d_backward_cuda_kernel<<<(num_coords + num_threads - 1) / num_threads, num_threads, 0, stream>>>(
@@ -430,7 +430,7 @@ void hashgrid_interpolate_backward_cuda_impl(
             );
         }));
     } else if (coord_dim == 2) {
-        AT_DISPATCH_FLOATING_TYPES_AND_HALF(grad_output.type(), "hashgrid_interpolate_2d_backward_cuda", ([&] {
+        AT_DISPATCH_FLOATING_TYPES_AND_HALF(grad_output.scalar_type(), "hashgrid_interpolate_2d_backward_cuda", ([&] {
             const at::cuda::OptionalCUDAGuard device_guard(at::device_of(grad_codebook));
             auto stream = at::cuda::getCurrentCUDAStream();
             hashgrid_interpolate_2d_backward_cuda_kernel<<<(num_coords + num_threads - 1) / num_threads, num_threads, 0, stream>>>(

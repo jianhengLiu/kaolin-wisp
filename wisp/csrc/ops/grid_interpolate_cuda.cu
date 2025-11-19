@@ -63,7 +63,7 @@ void grid_interpolate_cuda_impl(
 
     int num_threads = 512;
     
-    AT_DISPATCH_FLOATING_TYPES_AND_HALF(feats_in.type(), "grid_interpolate_cuda", ([&] {
+    AT_DISPATCH_FLOATING_TYPES_AND_HALF(feats_in.scalar_type(), "grid_interpolate_cuda", ([&] {
         const at::cuda::OptionalCUDAGuard device_guard(at::device_of(feats_in));
         auto stream = at::cuda::getCurrentCUDAStream();
         grid_interpolate_cuda_kernel<<<(num_coords + num_threads - 1) / num_threads, num_threads, 0, stream>>>(
@@ -137,7 +137,7 @@ void grid_interpolate_backward_cuda_impl(
 
     int num_threads = 512;
 
-    AT_DISPATCH_FLOATING_TYPES_AND_HALF(grad_output.type(), "grid_interpolate_backward_cuda", ([&] {
+    AT_DISPATCH_FLOATING_TYPES_AND_HALF(grad_output.scalar_type(), "grid_interpolate_backward_cuda", ([&] {
         const at::cuda::OptionalCUDAGuard device_guard(at::device_of(grad_output));
         auto stream = at::cuda::getCurrentCUDAStream();
         grid_interpolate_backward_cuda_kernel<<<(num_coords + num_threads - 1) / num_threads, num_threads, 0, stream>>>(
