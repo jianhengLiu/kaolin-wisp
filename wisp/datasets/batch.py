@@ -6,15 +6,25 @@
 # distribution of this software and related documentation without an express
 # license agreement from NVIDIA CORPORATION & AFFILIATES is strictly prohibited.
 
-
-from attrdict import AttrDict
 from typing import Optional, List, Dict, Any
 import torch
 from kaolin.render.camera import Camera
 from wisp.core import Rays
 
 
-class Batch(AttrDict):
+# from collections import UserDict
+
+# class AttrDict(UserDict):
+#     def __getattr__(self, key):
+#         return self.__getitem__(key)
+#     def __setattr__(self, key, value):
+#         if key == "data":
+#             return super().__setattr__(key, value)
+#         return self.__setitem__(key, value)
+
+import attridict
+
+class Batch(attridict):
     """ Represents a single batch of information sampled and collated from a WispDataset.
     Batches in Wisp keep a general structure by subclassing python's dictionaries and using their semantics.
     The exact fields each batch contain depend on the dataset type.

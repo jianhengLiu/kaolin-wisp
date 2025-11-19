@@ -1,8 +1,20 @@
-from attrdict import AttrDict
+
+
 from typing import Union, Type
 
+# from collections import UserDict
 
-class MetricsBoard(AttrDict):
+# class AttrDict(UserDict):
+#     def __getattr__(self, key):
+#         return self.__getitem__(key)
+#     def __setattr__(self, key, value):
+#         if key == "data":
+#             return super().__setattr__(key, value)
+#         return self.__setitem__(key, value)
+
+import attridict
+
+class MetricsBoard(attridict):
     """ A module for aggregating losses and metrics during optimization.
     Usage:
         - define_metric() declares the metrics this board expects, call this once when the optimization starts.
